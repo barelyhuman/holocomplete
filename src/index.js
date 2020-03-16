@@ -9,11 +9,11 @@ export default class HoloComplete extends React.Component {
     this.state = {
       value: '',
       holoStartValue: '',
-      holoEndValue: '',
-      show: props.show
+      holoEndValue: ''
     }
 
     this.escFunction = this.escFunction.bind(this)
+    this.sendCloseEvent = this.sendCloseEvent.bind(this)
   }
 
   componentDidMount() {
@@ -24,24 +24,15 @@ export default class HoloComplete extends React.Component {
     document.removeEventListener('keydown', this.escFunction, false)
   }
 
-  static getDerivedStateFromProps(props, state) {
-    if (props.show !== state.show) {
-      return {show: props.show}
+  escFunction(e) {
+    if (e.keyCode === 27) {
+      this.sendCloseEvent()
     }
-    return null
   }
 
-  escFunction(e) {
-    debugger
-    if (e.keyCode === 27) {
-      debugger
-      if (this.props.onClose && typeof this.props.onClose === 'function') {
-        this.props.onClose()
-      }
-      debugger
-      this.setState({
-        show: false
-      })
+  sendCloseEvent() {
+    if (this.props.onClose && typeof this.props.onClose === 'function') {
+      this.props.onClose()
     }
   }
 
@@ -78,11 +69,12 @@ export default class HoloComplete extends React.Component {
   }
 
   render() {
-    const { holoStartValue, holoEndValue, show } = this.state
+    const { holoStartValue, holoEndValue } = this.state
+    const { show } = this.props
     return (
       <React.Fragment>
         {show
-          ? <div className={styles['autocomplete-wrapper']} >
+          ? <div className={styles['autocomplete-wrapper']} onClick={this.sendCloseEvent}>
             <div className={styles.autocomplete + ' ' + styles['black-theme']} >
               <div className={styles['autocomplete-background']} data-autocomplete={holoEndValue}>
                 {holoStartValue}

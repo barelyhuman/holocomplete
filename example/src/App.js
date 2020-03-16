@@ -14,7 +14,7 @@ export default class App extends Component {
     return (
       <div className="">
         <button onClick={()=>this.setState({showComplete:!showComplete})}>Open HoloComplete</button>
-        <HoloComplete data={["hello"]} show={showComplete} onConfirm={(value)=>{console.log(value)}}/>
+        <HoloComplete data={["hello"]} show={showComplete} onConfirm={(value)=>{console.log(value)}} onClose={()=>this.setState({showComplete:false})}/>
       </div>
     )
   }
