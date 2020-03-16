@@ -1,8 +1,85 @@
-/* add css styles here (optional) */
+.autocomplete-wrapper{
+  height:100vh;
+  width:100vw;
+  position:fixed;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  background:rgba(0,0,0,0.50);
+}
 
-.test {
+.autocomplete {
+  position: absolute;
+  box-sizing: border-box;
+  width: 550px;
+  padding: 10px;
+  height: 60px;
+  border: none;
+  top:25%;
+  left:50%;
+  transform:translate(-50%,-50%);
+}
+
+.autocomplete-background {
+  font-family: sans-serif;
   display: inline-block;
-  margin: 2em auto;
-  border: 2px solid #000;
-  font-size: 2em;
+  position: absolute;
+  color: transparent;
+}
+
+.autocomplete-background::after {
+  content: attr(data-autocomplete);
+  color: #dee3e3;
+}
+
+.autocomplete-input {
+  background: transparent;
+  position: absolute;
+  color: #5c6b6b;
+  border: none;
+  outline: none;
+}
+
+.autocomplete-input,
+.autocomplete-background,
+.autocomplete-background::after {
+  font-family: sans-serif;
+  font-weight: 300;
+  font-size: 35px;
+  box-sizing: border-box;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  font-size: 34px;
+  line-height: 40px;
+  outline: none;
+}
+
+.autocomplete.black-theme {
+  background: black;
+  border-radius: 6px;
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.12);
+}
+
+.autocomplete.black-theme .autocomplete-input {
+  color: white;
+}
+
+.autocomplete.black-theme .autocomplete-background::after {
+  color: #555;
+}
+
+.autocomplete.bordered-theme {
+  background: transparent;
+  border-radius: 6px;
+  border: 2px solid #333;
+}
+
+.autocomplete.bordered-theme .autocomplete-input {
+  color: #333;
+}
+
+.autocomplete.bordered-theme .autocomplete-background::after {
+  color: #888;
 }
