@@ -9,7 +9,39 @@ export default class HoloComplete extends React.Component {
     this.state = {
       value: '',
       holoStartValue: '',
-      holoEndValue: ''
+      holoEndValue: '',
+      show: props.show
+    }
+
+    this.escFunction = this.escFunction.bind(this)
+  }
+
+  componentDidMount() {
+    document.addEventListener('keydown', this.escFunction, false)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.escFunction, false)
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.show !== state.show) {
+      return {show: props.show}
+    }
+    return null
+  }
+
+  escFunction(e) {
+    debugger
+    if (e.keyCode === 27) {
+      debugger
+      if (this.props.onClose && typeof this.props.onClose === 'function') {
+        this.props.onClose()
+      }
+      debugger
+      this.setState({
+        show: false
+      })
     }
   }
 
@@ -46,8 +78,7 @@ export default class HoloComplete extends React.Component {
   }
 
   render() {
-    const { holoStartValue, holoEndValue } = this.state
-    const { show } = this.props
+    const { holoStartValue, holoEndValue, show } = this.state
     return (
       <React.Fragment>
         {show
@@ -68,5 +99,6 @@ export default class HoloComplete extends React.Component {
 HoloComplete.propTypes = {
   data: PropTypes.array,
   show: PropTypes.bool,
-  onConfirm: PropTypes.func
+  onConfirm: PropTypes.func,
+  onClose: PropTypes.func
 }
